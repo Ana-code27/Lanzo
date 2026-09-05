@@ -23,3 +23,10 @@ while opcao != 6:
         produto_add = {"produto": produto, "valor": produto_uni}
         produtos.append(produto_add)
         opcao = menu()
+
+    elif opcao == 2:
+        print("********************")
+        print("LISTA DE PRODUTOS")
+        for produto_add in produtos:
+            print(f"Produto: {produto_add['produto']}, Valor: {produto_add['valor']}")
+        opcao = menu()
