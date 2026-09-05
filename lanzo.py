@@ -1,4 +1,5 @@
 produtos = []
+numero_cliente = 1
 
 def menu():
     print("*** LANZO ***")
@@ -29,4 +30,18 @@ while opcao != 6:
         print("LISTA DE PRODUTOS")
         for produto_add in produtos:
             print(f"Produto: {produto_add['produto']}, Valor: {produto_add['valor']}")
+        opcao = menu()
+
+    elif opcao == 3:
+        print("********************")
+        print("REGISTRANDO VENDA")
+        print(f"CLIENTE {numero_cliente}")
+        pedido = input("Digite o produto desejado: ")
+        quantidade = float(input("Digite a quantidade: "))
+
+        for produto_add in produtos:
+            if pedido == produto_add["produto"]:
+             total = produto_add["valor"] * quantidade
+             print("Total: R$ {}" .format(total))
+        numero_cliente += 1
         opcao = menu()
