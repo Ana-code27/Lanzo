@@ -1,5 +1,6 @@
 produtos = []
 numero_cliente = 1
+vendas = []
 
 def menu():
     print("*** LANZO ***")
@@ -43,5 +44,16 @@ while opcao != 6:
             if pedido == produto_add["produto"]:
              total = produto_add["valor"] * quantidade
              print("Total: R$ {}" .format(total))
+
+        venda = {"Cliente": numero_cliente, "Total": total}
+        vendas.append(venda)
+
         numero_cliente += 1
+        opcao = menu()
+
+    elif opcao == 4:
+        print("********************")
+        print("TODAS AS SUAS VENDAS")
+        for venda in vendas:
+            print(f"Cliente: {venda['Cliente']}, Total: {venda['Total']}")
         opcao = menu()
