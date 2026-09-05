@@ -57,3 +57,13 @@ while opcao != 6:
         for venda in vendas:
             print(f"Cliente: {venda['Cliente']}, Total: {venda['Total']}")
         opcao = menu()
+
+    elif opcao == 5:
+        print("********************")
+        print("TOTAL DO CAIXA")
+        vendas_total = 0
+        for venda in vendas:
+            vendas_total += venda["Total"]
+        print("Todas suas vendas somaram: R$ {}" .format(vendas_total))
+        
+        opcao = menu()
