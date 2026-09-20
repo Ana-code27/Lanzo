@@ -87,51 +87,52 @@ while opcao != 6:
         pedido = input("Digite o produto desejado: ")
 
         # Solicita a quantidade.
-        quantidade = float(input("Digite a quantidade: "))
+        quantidade = int(input("Digite a quantidade: "))
 
-        # Começa como False porque nenhum produto foi encontrado ainda.
-        encontrado = False
+        if quantidade <= 0:
+            print("Quantidade invalida!")
+            
+        else:
+            # Começa como False porque nenhum produto foi encontrado ainda.
+            encontrado = False
 
-        # Percorre os produtos cadastrados para encontrar
-        # aquele que corresponde ao pedido do cliente.
-        for produto_add in produtos:
+            # Percorre os produtos cadastrados para encontrar
+            # aquele que corresponde ao pedido do cliente.
+            for produto_add in produtos:
 
-            if pedido == produto_add["produto"]:
+                if pedido == produto_add["produto"]:
+                    # Calcula o valor total da venda:
+                    # preço do produto × quantidade.
+                    total = produto_add["valor"] * quantidade
 
-                # Calcula o valor total da venda:
-                # preço do produto × quantidade.
-                total = produto_add["valor"] * quantidade
+                    # Exibe o valor total da venda.
+                    print("Total: R$ {}".format(total))
 
-                # Exibe o valor total da venda.
-                print("Total: R$ {}".format(total))
+                    # Indica que o produto foi encontrado.
+                    encontrado = True
+                
 
-                # Indica que o produto foi encontrado.
-                encontrado = True
+            # Verifica se o produto não foi encontrado.
+            if not encontrado:
+                print("Produto não encontrado")
 
-        # Verifica se o produto não foi encontrado.
-        if not encontrado:
-            print("Produto não encontrado")
+            # Só registra a venda se o produto tiver sido encontrado.
+            if encontrado:
 
-        # Só registra a venda se o produto tiver sido encontrado.
-        if encontrado:
+                # Cria um dicionário com os dados da venda.
+                venda = {
+                    "Cliente": numero_cliente,
+                    "Total": total
+                }
 
-            # Cria um dicionário com os dados da venda.
-            venda = {
-                "Cliente": numero_cliente,
-                "Total": total
-            }
+                # Adiciona a venda à lista de vendas.
+                vendas.append(venda)
 
-            # Adiciona a venda à lista de vendas.
-            vendas.append(venda)
-
-            # Aumenta o número do cliente para a próxima venda.
-            numero_cliente += 1
+                # Aumenta o número do cliente para a próxima venda.
+                numero_cliente += 1
 
         # Volta para o menu.
         opcao = menu()
-
-        
-
 
     # --------------------------------------------------
     # OPÇÃO 4 - LISTAR VENDAS
