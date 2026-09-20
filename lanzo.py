@@ -39,19 +39,24 @@ while opcao != 6:
 
         # Solicita o preço do produto.
         # float() permite trabalhar com valores decimais.
-        produto_uni = float(
-            input("Digite o valor da unidade do produto: ")
-        )
+        try:
+            produto_uni = float(
+            input("Digite o valor da unidade do produto: "))
 
-        # Cria um dicionário contendo os dados do produto.
-        produto_add = {
-            "produto": produto,
-            "valor": produto_uni
-        }
+            if produto_uni <= 0:
+                print("Valor invalido!")
+            else:
+             # Cria um dicionário contendo os dados do produto.
+             produto_add = {
+                 "produto": produto,
+                 "valor": produto_uni
+                 }
+             # Adiciona o dicionário à lista de produtos.
+             produtos.append(produto_add)
 
-        # Adiciona o dicionário à lista de produtos.
-        produtos.append(produto_add)
-
+        except ValueError:
+            print("Valor invalido!")
+        
         # Exibe o menu novamente.
         opcao = menu()
 
@@ -91,7 +96,7 @@ while opcao != 6:
 
         if quantidade <= 0:
             print("Quantidade invalida!")
-            
+
         else:
             # Começa como False porque nenhum produto foi encontrado ainda.
             encontrado = False
