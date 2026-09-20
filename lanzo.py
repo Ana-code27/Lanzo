@@ -17,16 +17,18 @@ def menu():
     while True:
         try:
             opcao = int(input("Digite uma opção: "))
+
             if opcao < 1 or opcao > 6:
                 print("Opção inválida!")
             else:
                 return opcao
-        except:
-            print("Opção invalida!")
+
+        except ValueError:
+            print("Opção inválida!")
 
 
 # Exibe o menu pela primeira vez.
-opcao = menu()   
+opcao = menu()
 
 
 # O programa continua funcionando enquanto
@@ -47,22 +49,25 @@ while opcao != 6:
         # float() permite trabalhar com valores decimais.
         try:
             produto_uni = float(
-            input("Digite o valor da unidade do produto: "))
+                input("Digite o valor da unidade do produto: ")
+            )
 
             if produto_uni <= 0:
-                print("Valor invalido!")
+                print("Valor inválido!")
+
             else:
-             # Cria um dicionário contendo os dados do produto.
-             produto_add = {
-                 "produto": produto,
-                 "valor": produto_uni
-                 }
-             # Adiciona o dicionário à lista de produtos.
-             produtos.append(produto_add)
+                # Cria um dicionário contendo os dados do produto.
+                produto_add = {
+                    "produto": produto,
+                    "valor": produto_uni
+                }
+
+                # Adiciona o dicionário à lista de produtos.
+                produtos.append(produto_add)
 
         except ValueError:
-            print("Valor invalido!")
-        
+            print("Valor inválido!")
+
         # Exibe o menu novamente.
         opcao = menu()
 
@@ -84,6 +89,7 @@ while opcao != 6:
         # Volta para o menu.
         opcao = menu()
 
+
     # --------------------------------------------------
     # OPÇÃO 3 - REGISTRAR VENDA
     # --------------------------------------------------
@@ -101,7 +107,7 @@ while opcao != 6:
         quantidade = int(input("Digite a quantidade: "))
 
         if quantidade <= 0:
-            print("Quantidade invalida!")
+            print("Quantidade inválida!")
 
         else:
             # Começa como False porque nenhum produto foi encontrado ainda.
@@ -121,7 +127,6 @@ while opcao != 6:
 
                     # Indica que o produto foi encontrado.
                     encontrado = True
-                
 
             # Verifica se o produto não foi encontrado.
             if not encontrado:
@@ -144,6 +149,7 @@ while opcao != 6:
 
         # Volta para o menu.
         opcao = menu()
+
 
     # --------------------------------------------------
     # OPÇÃO 4 - LISTAR VENDAS
@@ -187,3 +193,6 @@ while opcao != 6:
 
         # Volta para o menu.
         opcao = menu()
+
+
+print("Sistema encerrado.")
