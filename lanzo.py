@@ -14,9 +14,15 @@ def menu():
     print("05. Ver total do caixa")
     print("06. Sair")
 
-    opcao = int(input("Digite uma opção: "))
-
-    return opcao
+    while True:
+        try:
+            opcao = int(input("Digite uma opção: "))
+            if opcao < 1 or opcao > 6:
+                print("Opção inválida!")
+            else:
+                return opcao
+        except:
+            print("Opção invalida!")
 
 
 # Exibe o menu pela primeira vez.
