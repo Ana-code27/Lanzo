@@ -73,7 +73,6 @@ while opcao != 6:
         # Volta para o menu.
         opcao = menu()
 
-
     # --------------------------------------------------
     # OPÇÃO 3 - REGISTRAR VENDA
     # --------------------------------------------------
@@ -90,6 +89,9 @@ while opcao != 6:
         # Solicita a quantidade.
         quantidade = float(input("Digite a quantidade: "))
 
+        # Começa como False porque nenhum produto foi encontrado ainda.
+        encontrado = False
+
         # Percorre os produtos cadastrados para encontrar
         # aquele que corresponde ao pedido do cliente.
         for produto_add in produtos:
@@ -100,22 +102,35 @@ while opcao != 6:
                 # preço do produto × quantidade.
                 total = produto_add["valor"] * quantidade
 
+                # Exibe o valor total da venda.
                 print("Total: R$ {}".format(total))
 
-        # Cria um dicionário com os dados da venda.
-        venda = {
-            "Cliente": numero_cliente,
-            "Total": total
-        }
+                # Indica que o produto foi encontrado.
+                encontrado = True
 
-        # Adiciona a venda à lista de vendas.
-        vendas.append(venda)
+        # Verifica se o produto não foi encontrado.
+        if not encontrado:
+            print("Produto não encontrado")
 
-        # Aumenta o número para o próximo cliente.
-        numero_cliente += 1
+        # Só registra a venda se o produto tiver sido encontrado.
+        if encontrado:
+
+            # Cria um dicionário com os dados da venda.
+            venda = {
+                "Cliente": numero_cliente,
+                "Total": total
+            }
+
+            # Adiciona a venda à lista de vendas.
+            vendas.append(venda)
+
+            # Aumenta o número do cliente para a próxima venda.
+            numero_cliente += 1
 
         # Volta para o menu.
         opcao = menu()
+
+        
 
 
     # --------------------------------------------------
