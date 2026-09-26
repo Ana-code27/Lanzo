@@ -43,8 +43,11 @@ while opcao != 6:
         print("CADASTRANDO PRODUTO")
 
         # Solicita o nome do produto.
-        produto = input("Digite o nome do produto: ")
+        produto_nome = input("Digite o nome do produto: ").strip()
 
+        while not produto_nome:
+            print("Erro: o nome do produto não pode ser vazio")
+            produto_nome = input("Digite o nome do produto: ").strip()
         # Solicita o preço do produto.
         # float() permite trabalhar com valores decimais.
         try:
@@ -58,7 +61,7 @@ while opcao != 6:
             else:
                 # Cria um dicionário contendo os dados do produto.
                 produto_add = {
-                    "produto": produto,
+                    "produto": produto_nome,
                     "valor": produto_uni
                 }
 
@@ -79,14 +82,18 @@ while opcao != 6:
         print("********************")
         print("LISTA DE PRODUTOS")
 
-        # Percorre todos os produtos cadastrados.
-        for produto_add in produtos:
-            print(
-                f"Produto: {produto_add['produto']}, "
-                f"Valor: {produto_add['valor']}"
-            )
+        if not produtos:
+            print("Nenhum produto cadastrado.")
+        else:
+            for produto_add in produtos:
+                print(
+                    f"Produto: {produto_add['produto']}, "
+                    f"Valor: R$ {produto_add['valor']:,.2f}"
+                    .replace(",", "X")
+                    .replace(".", ",")
+                    .replace("X", ".")
+                    )
 
-        # Volta para o menu.
         opcao = menu()
 
 
