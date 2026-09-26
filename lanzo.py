@@ -104,57 +104,53 @@ while opcao != 6:
         print("********************")
         print("REGISTRANDO VENDA")
 
-        # Mostra automaticamente o número do cliente.
-        print(f"CLIENTE {numero_cliente}")
-
-        # Solicita o produto que será vendido.
-        pedido = input("Digite o produto desejado: ")
-
-        # Solicita a quantidade.
-        quantidade = int(input("Digite a quantidade: "))
-
-        if quantidade <= 0:
-            print("Quantidade inválida!")
-
+        if not produtos:
+            print("Nenhum produto cadastrado.")
         else:
-            # Começa como False porque nenhum produto foi encontrado ainda.
-            encontrado = False
+            print(f"CLIENTE {numero_cliente}")
 
-            # Percorre os produtos cadastrados para encontrar
-            # aquele que corresponde ao pedido do cliente.
-            for produto_add in produtos:
+            pedido = input("Digite o produto desejado: ").strip()
 
-                if pedido == produto_add["produto"]:
-                    # Calcula o valor total da venda:
-                    # preço do produto × quantidade.
-                    total = produto_add["valor"] * quantidade
+            try:
+                quantidade = int(input("Digite a quantidade: "))
 
-                    # Exibe o valor total da venda.
-                    print("Total: R$ {}".format(total))
+                if quantidade <= 0:
+                    print("A quantidade deve ser maior que zero!")
 
-                    # Indica que o produto foi encontrado.
-                    encontrado = True
+                else:
+                    encontrado = False
 
-            # Verifica se o produto não foi encontrado.
-            if not encontrado:
-                print("Produto não encontrado")
+                    for produto_add in produtos:
+                        if pedido == produto_add["produto"]:
 
-            # Só registra a venda se o produto tiver sido encontrado.
-            if encontrado:
+                            total = produto_add["valor"] * quantidade
 
-                # Cria um dicionário com os dados da venda.
-                venda = {
-                    "Cliente": numero_cliente,
-                    "Total": total
-                }
+                            print(
+                                f"Total: R$ {total:,.2f}"
+                                .replace(",", "X")
+                                .replace(".", ",")
+                                .replace("X", ".")
+                            )
 
-                # Adiciona a venda à lista de vendas.
-                vendas.append(venda)
+                            encontrado = True
 
-                # Aumenta o número do cliente para a próxima venda.
-                numero_cliente += 1
+                            venda = {
+                                "Cliente": numero_cliente,
+                                "Total": total
+                            }
 
-        # Volta para o menu.
+                            vendas.append(venda)
+
+                            numero_cliente += 1
+                            
+                            break
+
+                    if not encontrado:
+                        print("Produto não encontrado.")
+
+            except ValueError:
+                print("A quantidade deve ser um número inteiro.")
+
         opcao = menu()
 
 
