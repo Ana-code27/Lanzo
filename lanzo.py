@@ -1,10 +1,9 @@
-produtos = []           # Lista que armazena todos os produtos cadastrados.
-numero_cliente = 1      # Número do próximo cliente. Começa em 1 e aumenta a cada venda registrada.
-vendas = []             # Lista que armazena todas as vendas realizadas.
+produtos = []           # Produtos cadastrados.
+numero_cliente = 1      # Número do próximo cliente.
+vendas = []             # Vendas realizadas.
 
 
-# Exibe o menu principal do sistema e retorna
-# a opção escolhida pelo usuário.
+# Exibe o menu principal e retorna a opção escolhida.
 def menu():
     print("*** LANZO ***")
     print("01. Cadastrar produto")
@@ -31,8 +30,7 @@ def menu():
 opcao = menu()
 
 
-# O programa continua funcionando enquanto
-# a opção escolhida for diferente de 6 (Sair).
+# Mantém o sistema em funcionamento até a opção 6.
 while opcao != 6:
 
     # --------------------------------------------------
@@ -42,14 +40,13 @@ while opcao != 6:
         print("********************")
         print("CADASTRANDO PRODUTO")
 
-        # Solicita o nome do produto.
         produto_nome = input("Digite o nome do produto: ").strip()
 
+        # Impede o cadastro de produtos sem nome.
         while not produto_nome:
             print("Erro: o nome do produto não pode ser vazio")
             produto_nome = input("Digite o nome do produto: ").strip()
-        # Solicita o preço do produto.
-        # float() permite trabalhar com valores decimais.
+
         try:
             produto_uni = float(
                 input("Digite o valor da unidade do produto: ")
@@ -59,19 +56,16 @@ while opcao != 6:
                 print("Valor inválido!")
 
             else:
-                # Cria um dicionário contendo os dados do produto.
                 produto_add = {
                     "produto": produto_nome,
                     "valor": produto_uni
                 }
 
-                # Adiciona o dicionário à lista de produtos.
                 produtos.append(produto_add)
 
         except ValueError:
             print("Valor inválido!")
 
-        # Exibe o menu novamente.
         opcao = menu()
 
 
@@ -141,8 +135,9 @@ while opcao != 6:
 
                             vendas.append(venda)
 
+                            # Só avança após uma venda válida.
                             numero_cliente += 1
-                            
+
                             break
 
                     if not encontrado:
@@ -159,16 +154,20 @@ while opcao != 6:
     # --------------------------------------------------
     elif opcao == 4:
         print("********************")
-        print("TODAS AS SUAS VENDAS")
+        print("TODAS AS VENDAS")
 
-        # Percorre todas as vendas registradas.
-        for venda in vendas:
-            print(
-                f"Cliente: {venda['Cliente']}, "
-                f"Total: {venda['Total']}"
-            )
+        if not vendas:
+            print("Nenhuma venda cadastrada.")
+        else:
+            for venda in vendas:
+                print(
+                    f"Cliente: {venda['Cliente']}, "
+                    f"Total: R$ {venda['Total']:,.2f}"
+                    .replace(",", "X")
+                    .replace(".", ",")
+                    .replace("X", ".")
+                    )
 
-        # Volta para o menu.
         opcao = menu()
 
 
@@ -179,22 +178,22 @@ while opcao != 6:
         print("********************")
         print("TOTAL DO CAIXA")
 
-        # Começa o acumulador do caixa em zero.
-        vendas_total = 0
+        if not vendas:
+            print("Nenhuma venda cadastrada.")
+        else:
 
-        # Percorre todas as vendas realizadas.
-        for venda in vendas:
+            vendas_total = 0
 
-            # Soma o total de cada venda ao acumulador.
-            vendas_total += venda["Total"]
+            # Soma todas as vendas realizadas.
+            for venda in vendas:
+                vendas_total += venda["Total"]
 
-        # Exibe a soma de todas as vendas.
-        print(
-            "Todas suas vendas somaram: R$ {}"
-            .format(vendas_total)
-        )
+            print(f"Todas suas vendas somaram: R$ {vendas_total:,.2f}"
+            .replace(",", "X")
+            .replace(".", ",")
+            .replace("X", ".")
+            )
 
-        # Volta para o menu.
         opcao = menu()
 
 
